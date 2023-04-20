@@ -1,4 +1,4 @@
-package indl.lixn.tickingelapse.by_kafka;
+package indl.lixn.tickingelapse.wheel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ public class TimerTaskList implements Delayed {
 
     private final List<TimerTask> taskEntryList = new ArrayList<>();
 
+    /** 统一的delay，所以在TimerTask里不需要重复的维护一个变量去表示delay了 **/
     private long delay;
 
     public void add(TimerTask task) {
@@ -23,6 +24,10 @@ public class TimerTaskList implements Delayed {
         for (TimerTask task : taskEntryList) {
             taskConsumer.accept(task);
         }
+    }
+
+    public boolean hasTask() {
+        return !this.taskEntryList.isEmpty();
     }
 
     @Override
