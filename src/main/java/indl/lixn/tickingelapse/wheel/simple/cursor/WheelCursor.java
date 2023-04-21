@@ -23,7 +23,7 @@ public class WheelCursor {
     }
 
     private boolean makeSureNotExceedLimit() {
-        if (this.pointer == this.limit - 1) {
+        if (this.pointer == this.limit) {
             this.pointer = 0;
             return true;
         }

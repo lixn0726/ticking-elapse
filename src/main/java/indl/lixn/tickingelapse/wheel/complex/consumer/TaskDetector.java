@@ -9,6 +9,8 @@ public class TaskDetector implements Runnable {
 
     private static final AtomicInteger detectorCount = new AtomicInteger(0);
 
+
+
     private String detectorName;
 
     @Override

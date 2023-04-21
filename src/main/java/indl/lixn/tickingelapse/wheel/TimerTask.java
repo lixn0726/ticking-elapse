@@ -1,9 +1,11 @@
 package indl.lixn.tickingelapse.wheel;
 
+import indl.lixn.tickingelapse.wheel.complex.TimerTaskLinkedList;
+
 /**
  * @author listen
  **/
-public interface TimerTask {
+public interface TimerTask extends Runnable {
 
     /**
      * 取消任务
@@ -16,5 +18,8 @@ public interface TimerTask {
     void perform();
 
     long getDelay();
+
+    TimerTaskLinkedList.TimerTaskEntry getTimerTaskEntry();
+
 
 }

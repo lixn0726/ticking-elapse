@@ -3,7 +3,6 @@ package indl.lixn.tickingelapse.wheel.simple;
 import indl.lixn.tickingelapse.common.LogWrapper;
 import indl.lixn.tickingelapse.entity.dataobject.TimingWheelConfig;
 import indl.lixn.tickingelapse.wheel.TimerTask;
-import indl.lixn.tickingelapse.wheel.TimerTaskList;
 import indl.lixn.tickingelapse.wheel.simple.cursor.WheelCursor;
 
 import java.util.Calendar;
@@ -51,6 +50,7 @@ public class ArrayBasedTimingWheel {
     public void start() {
         LOG.info("start now");
         calendar.setTime(new Date());
+        advanceCalendar();
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 advanceClock();
@@ -92,8 +92,8 @@ public class ArrayBasedTimingWheel {
         if (tasks.hasTask()) {
             if (underflowTimingWheel != null) {
                 tasks.foreach(task -> {
-//                    LOG.info("re add to underflow");
-                    underflowTimingWheel.add(task, task.getDelay() - interval);
+                    LOG.warn("发往下层时间轮 {}", task);
+                    underflowTimingWheel.add(task, task.getDelay() - underflowTimingWheel.interval);
                 });
             } else {
                 tasks.foreach(TimerTask::perform);

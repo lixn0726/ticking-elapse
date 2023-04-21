@@ -21,14 +21,19 @@ public class ArrayBasedTimingWheelTest {
 
         timingWheel.start();
 
-        timingWheel.add(new TaskImpl(1, TimeUnit.SECONDS));  // 5
+//        timingWheel.add(new TaskImpl(1, TimeUnit.SECONDS));  // 5
 //        timingWheel.add(new TaskImpl(10, TimeUnit.SECONDS)); // 10
 
-        sleepForSecond(3);
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException ex) {
+            System.out.println("app stop running");
+        }
 //
 //        timingWheel.add(new TaskImpl(3, TimeUnit.SECONDS)); // 6
 //
-//        timingWheel.add(new TaskImpl(13, TimeUnit.SECONDS)); // 16
+        /// TODO 发现这里，在等待一段时间后再添加的话，会将等待时间给去掉了，所以到时候需要加上
+        timingWheel.add(new TaskImpl(13, TimeUnit.SECONDS)); // 16
 
         sleepOneDay();
     }
@@ -42,11 +47,7 @@ public class ArrayBasedTimingWheelTest {
     }
 
     private void sleepForSecond(int num) {
-        try {
-            TimeUnit.SECONDS.sleep(num);
-        } catch (InterruptedException ex) {
-            System.out.println("app stop running");
-        }
+
     }
 
 }
